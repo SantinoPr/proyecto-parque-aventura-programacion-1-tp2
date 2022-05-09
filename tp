@@ -1,0 +1,126 @@
+
+namespace tp2
+{
+    internal class Program
+    {
+        public static void Main()
+        {
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.BackgroundColor = ConsoleColor.White;
+            Console.WindowHeight = 30;
+            Console.WindowWidth = 60;
+            Console.BufferWidth = 60;
+            Console.BufferHeight = 30;
+            Console.Title = "Circuito Aventura";
+            Console.Clear();
+
+            int opcion, cierre = 0, finedad = 1, edad = 0, pasaportes = 0, personas, edades = 0, libres = 0, tpersonas = 0, feriado;
+            int mayores = 0;
+            int menores = 0;
+            double total = 0;
+            double descuentos = 0;
+            double ValorE;
+
+
+
+            while (cierre != -5)
+            {
+                Console.WriteLine("               Ingrese 1 si desea un pasaporte");
+                Console.WriteLine("             Ingrese 2 si desea pase individual");
+                Console.SetCursorPosition(40, 27);
+                Console.WriteLine("Cierre el dia con -5");
+                opcion = Convert.ToInt32(Console.ReadLine());
+                Console.Clear();
+
+                Console.WriteLine("Ingrese el precio de la entrada");
+                ValorE = Convert.ToInt32(Console.ReadLine());
+
+                if (opcion == 1) //pasaportes
+                {
+
+
+                    Console.WriteLine("Ingrese Cuantas personas son");
+                    personas = Convert.ToInt32(Console.ReadLine());
+                    tpersonas = tpersonas + personas;
+                    if (tpersonas >= 4 && tpersonas <= 10)
+                    {
+                        Console.Clear();
+                        pasaportes = pasaportes + 1;
+                        Console.WriteLine("Ingrese edades. Finalice con 0");
+                        while (finedad != 0)
+                        {
+                            finedad = Convert.ToInt32(Console.ReadLine());
+                            edad = finedad;
+                            edades = edades + edad;
+
+                            if (edad >= 21)
+                            {
+                                mayores++;
+                                total = ValorE;
+                            }                            
+                            else if (edad == 16)
+                            {
+                                menores++;
+
+                            }else if(edad>=4 && edad <= 10)
+                            {
+                                menores++;
+                                total = (ValorE * 50) / 100;
+                            }else if (edad>=11 && edad <= 15)
+                            {
+                                menores++;
+                                total= (ValorE * 20) / 100;
+                            }
+                           
+
+                            if (menores / 6 > mayores)
+                            {
+                                Console.WriteLine("Se necesita un mayor para ingresar!");
+                            }
+
+
+
+                        }
+                        Console.Clear();
+                        Console.WriteLine("ingrese 1 si es Feriado para obtener descuento");
+                        feriado = Convert.ToInt32(Console.ReadLine());
+
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        Console.WriteLine(" Error! \n El pase es para minimo 4 y maximo 10 personas");
+                        Console.ReadKey();
+                    }
+                }
+                else if (opcion == 2) //pases libres
+                {
+
+                    Console.WriteLine("Ingrese Su edad");
+                    edad = Convert.ToInt32(Console.ReadLine());
+                    if (edad >= 16)
+                    {
+                        tpersonas = tpersonas + 1;
+                        edades = edades + edad;
+                        libres = libres + 1;
+
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        Console.WriteLine("No tiene la edad suficiente");// hasta aca es el ingreso individual o en grupo
+                    }
+
+                }
+               
+                
+
+                Console.WriteLine("la cantidad de menores es {0}", menores - 1);
+                Console.WriteLine("el total a pagar es de: {0}", total);
+            }
+
+
+            Console.ReadKey();
+        }
+    }
+}
